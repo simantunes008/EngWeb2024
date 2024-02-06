@@ -11,4 +11,6 @@ UC de 3º Ano de Engenharia Informática da Universidade do Minho.
 **Email:** a100597@alunos.uminho.pt
 
 **Fotografia:** 
-<img src="DSC_0687pfp.JPG" alt="Texto alternativo" width="200" height="200">
+<p>
+    <img src="DSC_0687pfp.JPG" alt="Texto alternativo" width="200" height="200">
+</p>
