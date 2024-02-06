@@ -2,7 +2,7 @@
 
 <doc>
     <meta>
-        <title>TPC1: Exemplo</tilte>
+        <title>TPC1: Exemplo</title>
         <date>2024-02-05</date>
         <author>
             <id>A100597</id>
@@ -19,7 +19,7 @@
         <p>Tercerio parágrafo com <url>link</url><texto>url embutido</texto></p>
     </resumo>
     <resultados>
-        <resultado>resultado 1</resultados>
-        <resultado>resultado 2</resultados>
+        <resultado>resultado 1</resultado>
+        <resultado>resultado 2</resultado>
     </resultados>
 </doc>    
