@@ -1,13 +1,14 @@
 # EngWeb2024
 
-UC de 3º Ano de Engenharia Informática da Universidade do Minho
+UC de 3º Ano de Engenharia Informática da Universidade do Minho.
 
 ## Aluno
 
-**Nome:** Simão Antunes
+**Nome:** Simão Pedro Ferreira Antunes
 
 **Número:** A100597
 
 **Email:** a100597@alunos.uminho.pt
 
-**Fotografia:** ![Texto alternativo](DSC_0687pfp.JPG)
+**Fotografia:** 
+<img src="DSC_0687pfp.JPG" alt="Texto alternativo" width="200" height="200">
