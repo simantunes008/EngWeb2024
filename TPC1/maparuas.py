@@ -21,7 +21,7 @@ template = """
 <body>
 """
 
-path_to_xml = './MapaRuas-materialBase/texto'
+path_to_xml = '../../MapaRuas-materialBase/texto'
 
 html += "<ul>"
 
