@@ -7,6 +7,9 @@ indice = """
 <head>
     <title>MapaRuas</title>
     <meta charset="utf-8">
+    <style>
+        
+    </style>
 </head>
 <body>
     <h1>MapaRuas</h1>
@@ -15,11 +18,11 @@ indice = """
 
 litsaruas = []
 
-for filename in os.listdir("./MapaRuas-materialBase/texto"):
-    filepath = os.path.join("./MapaRuas-materialBase/texto", filename)
-    file = open(filepath, "r", encoding="utf-8")
+for file in os.listdir("./MapaRuas-materialBase/texto"):
+    file = open("./MapaRuas-materialBase/texto/" + file, "r", encoding="utf-8")
     tree = ET.parse(file)
     root = tree.getroot()
+    file.close()
     
     rua = root[0][1].text
     litsaruas.append(rua)
@@ -29,35 +32,42 @@ for filename in os.listdir("./MapaRuas-materialBase/texto"):
     <!DOCTYPE html>
     <html lang="en-US">
     <head>
-        <title>Rua</title>
+        <title>{rua}</title>
         <meta charset="utf-8">
+        <style>
+            
+        </style>
     </head>
     <body>
-        <h1>{rua}</h1>
     """
     
     for element in root[1]:
         if (element.tag == "figura"):
-            img_path = element.find("imagem").attrib["path"]
+            caminho = element.find("imagem").attrib["path"]
             legenda = element.find("legenda").text
-            templateRua += f'<img src="../MapaRuas-materialBase/imagem/{img_path}" alt="{legenda}" style="max-width: 50%;">'
+            templateRua += f'<img src="../MapaRuas-materialBase/imagem/{caminho}" alt="{legenda}">'
             templateRua += f'<p>{legenda}</p>'
-            
+        
         if (element.tag == "para"):
-            texto_paragrafo = ET.tostring(element, encoding='unicode', method='text').strip()
-            templateRua += texto_paragrafo
+            paragrafo = ET.tostring(element, encoding='unicode', method='text').strip()
+            templateRua += paragrafo
         
         if (element.tag == "lista-casas"):
             templateRua += "<ul>"
-            
             for casa in root.findall("./corpo/lista-casas/casa"):
                 numero_casa = casa.find("número").text
                 enfiteuta_element = casa.find("enfiteuta")
                 enfiteuta = enfiteuta_element.text if enfiteuta_element is not None else "N/A"
                 foro_element = casa.find("foro")
                 foro = foro_element.text if foro_element is not None else "N/A"
-                templateRua += f"<li>Casa {numero_casa}: Enfiteuta - {enfiteuta}, Foro - {foro}</li>"
-            
+                descricao_element = casa.find("desc")
+                descricao = ET.tostring(descricao_element, encoding='unicode', method='text').strip() if descricao_element is not None else ""
+                templateRua += f"""
+                <li> <b>Número: </b> {numero_casa}
+                <p><b>Enfiteuta:</b> {enfiteuta}</p>
+                <p><b>Foro:</b> {foro}</p>
+                <p>{descricao}</p></li>
+                """
             templateRua += "</ul>"
     
     templateRua += "</body>"
