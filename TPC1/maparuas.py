@@ -24,7 +24,7 @@ for file in os.listdir("./MapaRuas-materialBase/texto"):
     root = tree.getroot()
     file.close()
     
-    rua = root[0][1].text
+    rua = root[0][1].text.strip()
     litsaruas.append(rua)
     
     ficheiroRua = open(f"html/{rua}.html", "w")
@@ -35,7 +35,12 @@ for file in os.listdir("./MapaRuas-materialBase/texto"):
         <title>{rua}</title>
         <meta charset="utf-8">
         <style>
-            
+            img {{
+                max-width: 80%; 
+                height: auto;
+                display: block; 
+                margin: 0 auto; 
+            }}
         </style>
     </head>
     <body>
@@ -46,7 +51,7 @@ for file in os.listdir("./MapaRuas-materialBase/texto"):
             caminho = element.find("imagem").attrib["path"]
             legenda = element.find("legenda").text
             templateRua += f'<img src="../MapaRuas-materialBase/imagem/{caminho}" alt="{legenda}">'
-            templateRua += f'<p>{legenda}</p>'
+            templateRua += f'<p style="margin-top: 10px; text-align: center;">{legenda}</p>'
         
         if (element.tag == "para"):
             paragrafo = ET.tostring(element, encoding='unicode', method='text').strip()
@@ -79,7 +84,7 @@ for rua in sorted(litsaruas):
     indice += f'<li><a href="html/{rua}.html">{rua}</a></li>'
 
 indice += """
-    </ul>
+    </ul>Cidade
 </body>
 </html>
 """
