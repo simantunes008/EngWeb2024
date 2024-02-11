@@ -1,7 +1,7 @@
 import os
 import xml.etree.ElementTree as ET
 
-html = """
+indice = """
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -9,43 +9,71 @@ html = """
     <meta charset="utf-8">
 </head>
 <body>
+    <h1>MapaRuas</h1>
+    <ul>
 """
 
-template = """
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-    <title> Mapa</title>
-    <meta charset="utf-8">
-</head>
-<body>
-"""
+litsaruas = []
 
-path_to_xml = '../../MapaRuas-materialBase/texto'
-
-html += "<ul>"
-
-listaruas = []
-for file_name in os.listdir(path_to_xml):
-    complete_file_path = path_to_xml + '/' + file_name
-    tree = ET.parse(complete_file_path)
+for filename in os.listdir("./MapaRuas-materialBase/texto"):
+    filepath = os.path.join("./MapaRuas-materialBase/texto", filename)
+    file = open(filepath, "r", encoding="utf-8")
+    tree = ET.parse(file)
     root = tree.getroot()
-    rua = root.find('.//nome').text
-    listaruas.append(rua)
-    htmlfile = open(f"html/{rua}.html", "w")
-    templaterua = template
-    templaterua += f"<h1> {rua} </h1>" 
-    templaterua += "</body>"
-    templaterua += '<h6> <a href="../maparuas.html"> Voltar </a> </h6>'
-    htmlfile.write(templaterua)
+    
+    rua = root[0][1].text
+    litsaruas.append(rua)
+    
+    ficheiroRua = open(f"html/{rua}.html", "w")
+    templateRua = f"""
+    <!DOCTYPE html>
+    <html lang="en-US">
+    <head>
+        <title>Rua</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>{rua}</h1>
+    """
+    
+    for element in root[1]:
+        if (element.tag == "figura"):
+            img_path = element.find("imagem").attrib["path"]
+            legenda = element.find("legenda").text
+            templateRua += f'<img src="../MapaRuas-materialBase/imagem/{img_path}" alt="{legenda}" style="max-width: 50%;">'
+            templateRua += f'<p>{legenda}</p>'
+            
+        if (element.tag == "para"):
+            texto_paragrafo = ET.tostring(element, encoding='unicode', method='text').strip()
+            templateRua += texto_paragrafo
+        
+        if (element.tag == "lista-casas"):
+            templateRua += "<ul>"
+            
+            for casa in root.findall("./corpo/lista-casas/casa"):
+                numero_casa = casa.find("número").text
+                enfiteuta_element = casa.find("enfiteuta")
+                enfiteuta = enfiteuta_element.text if enfiteuta_element is not None else "N/A"
+                foro_element = casa.find("foro")
+                foro = foro_element.text if foro_element is not None else "N/A"
+                templateRua += f"<li>Casa {numero_casa}: Enfiteuta - {enfiteuta}, Foro - {foro}</li>"
+            
+            templateRua += "</ul>"
+    
+    templateRua += "</body>"
+    templateRua += "<h6><a href=../maparuas.html>Voltar</h6>"
+    ficheiroRua.write(templateRua)
+    ficheiroRua.close()
 
-for rua in sorted(listaruas):
-    html += f'<li> <a href="html/{rua}.html"> {rua} </a> </li>'
+for rua in sorted(litsaruas):
+    indice += f'<li><a href="html/{rua}.html">{rua}</a></li>'
 
-html += "</ul>"
-html += "</body>"
-html += "</html>"
+indice += """
+    </ul>
+</body>
+</html>
+"""
 
 htmlfile = open("maparuas.html", "w", encoding = "utf-8")
-htmlfile.write(html)
+htmlfile.write(indice)
 htmlfile.close()
