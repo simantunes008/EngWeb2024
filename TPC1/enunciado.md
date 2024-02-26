@@ -12,8 +12,8 @@ Criar uma página estática com um índice ordenado das várias ruas de Braga e 
 Para a execução deste projeto, criei um pequeno script em pyhton que integra os vários ficheiros.xml e cria todas as páginas html necessárias. Decidi utilizar a biblioteca *xml.etree.ElementTree* para procurar facilmente a informação relevante para a construção da página html de cada Rua.
 
 ## Resultados Obtidos
-![Resultado 1](resultado1.png)
+![Resultado 1](resultados/resultado1.png)
 
-![Resultado 2](resultado2.png)
+![Resultado 2](resultados/resultado2.png)
 
-![Resultado 3](resultado3.png)
+![Resultado 3](resultados/resultado3.png)
