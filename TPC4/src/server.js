@@ -68,9 +68,9 @@ var alunosServer = http.createServer((req, res) => {
                 }
 
                 // GET /compositores/periodo --------------------------------------------------------------------
-                else if(/\/compositores\/P[0-9]+/.test(req.url)){
-                    var idPeriodo = req.url.split("/")[2]
-                    axios.get('http://localhost:3000/compositores?id_periodo=' + idPeriodo + '&_sort=nome')
+                else if(/\/compositores\/[A-Z][a-z]+/.test(req.url)){
+                    var periodo = req.url.split("/")[2]
+                    axios.get('http://localhost:3000/compositores?periodo=' + periodo + '&_sort=nome')
                     .then(resp => {
                         var compositores = resp.data
                         res.writeHead(200, {'Content-Type': "text/html"})
@@ -102,19 +102,23 @@ var alunosServer = http.createServer((req, res) => {
 
                 // GET /compositores/edit/id --------------------------------------------------------------------
                 else if (/\/compositores\/edit\/C[0-9]+/.test(req.url)){
-                    var idCompositor = req.url.split("/")[3]
-                    axios.get('http://localhost:3000/compositores/' + idCompositor)
-                    .then(resp => {
-                        var compositor = resp.data
-                        res.writeHead(200, {'Content-Type': "text/html"})
-                        res.write(templates.compositorFormEditPage(compositor,d))
-                        res.end()
-                    })
+                    var idCompositor = req.url.split("/")[3];
+                    axios.all([
+                        axios.get('http://localhost:3000/compositores/' + idCompositor),
+                        axios.get('http://localhost:3000/periodos')
+                    ])
+                    .then(axios.spread((compositorResp, periodosResp) => {
+                        var compositor = compositorResp.data;
+                        var periodos = periodosResp.data;
+                        res.writeHead(200, {'Content-Type': "text/html"});
+                        res.write(templates.compositorFormEditPage(compositor, periodos, d));
+                        res.end();
+                    }))
                     .catch( erro => {
-                        res.writeHead(521, {'Content-Type': "text/html"})
-                        res.write(templates.errorPage(erro, d))
-                        res.end()
-                    })
+                        res.writeHead(521, {'Content-Type': "text/html"});
+                        res.write(templates.errorPage(erro, d));
+                        res.end();
+                    });
                 }
                 
                 // GET /compositores/delete/id --------------------------------------------------------------------

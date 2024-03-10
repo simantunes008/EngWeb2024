@@ -13,12 +13,5 @@ with open('compositores.json', 'r') as json_file:
 periodos = cacl_periodos(db['compositores'])
 db['periodos'] = periodos
 
-for compositor in db['compositores']:
-    for periodo in db['periodos']:
-        if 'periodo' in compositor:
-            if compositor['periodo'] == periodo['nome']:
-                compositor['id_periodo'] = periodo['id']
-                break
-
 with open('compositores.json', 'w') as json_file:
     json.dump(db, json_file, indent=4)

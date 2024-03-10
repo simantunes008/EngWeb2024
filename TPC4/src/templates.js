@@ -92,7 +92,7 @@ exports.compositorFormPage = function(d, periodos) {
                         <select class="w3-select w3-round" name="periodo">
                             <option value="">Selecione uma opção</option>`;
                             for(let i = 0; i < periodos.length; i++) {
-                                pagHTML += `<option value="${periodos[i].id}">${periodos[i].nome}</option>`;
+                                pagHTML += `<option value="${periodos[i].nome}">${periodos[i].nome}</option>`;
                             }
 
     pagHTML += `
@@ -112,7 +112,7 @@ exports.compositorFormPage = function(d, periodos) {
 };
 
 
-exports.compositorFormEditPage = function(compositor, d){
+exports.compositorFormEditPage = function(compositor, periodos, d){
     var pagHTML = `
     <!DOCTYPE html>
     <html>
@@ -142,7 +142,13 @@ exports.compositorFormEditPage = function(compositor, d){
                         <label>Data de Óbito</label>
                         <input class="w3-input w3-round" type="date" name="dataObito" value="${compositor.dataObito}"/>
                         <label>Período</label>
-                        <input class="w3-input w3-round" type="text" name="periodo" value="${compositor.periodo}"/>
+                        <select class="w3-select w3-round" name="periodo">`;
+                            for(let i = 0; i < periodos.length; i++) {
+                                pagHTML += `<option value="${periodos[i].nome}" ${compositor.periodo === periodos[i].nome ? 'selected' : ''}>${periodos[i].nome}</option>`;
+                            }
+
+    pagHTML += `
+                        </select>
                     </fieldset>
                     <br/>
                     <button class="w3-btn w3-brown w3-mb-2" type="submit">Atualizar</button>
@@ -153,8 +159,8 @@ exports.compositorFormEditPage = function(compositor, d){
                 </footer>
             
             </div>
-    `
-    return pagHTML
+    `;
+    return pagHTML;
 }
 
 
@@ -179,7 +185,7 @@ exports.compositorPage = function(compositor, d ){
                     <li><b>Biografia: </b> ${compositor.bio}</li>
                     <li><b>Data de Nascimento: </b> ${compositor.dataNasc}</li>
                     <li><b>Data de Óbito: </b> ${compositor.dataObito}</li>
-                    <li><b>Período: </b> <a href="/periodos/${compositor.id_periodo}">${compositor.periodo}</a></li>
+                    <li><b>Período: </b> ${compositor.periodo}</li>
                 </ul>
             </div>
             <footer class="w3-container w3-brown">

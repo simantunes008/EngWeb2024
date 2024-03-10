@@ -1,0 +1,12 @@
+{
+  "name": "tpc4",
+  "version": "1.0.0",
+  "description": "Serviço que implementa as operações CRUD",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "author": "Simão Antunes",
+  "license": "ISC"
+}
