@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    .w3-card-4
+        header.w3-container.w3-brown
+            h1= periodo.nome
+        
+        .w3-container
+            ul.w3-ul.w3-card-4(style="width:50%")
+                li
+                    b ID:
+                    |  #{periodo.id}
+        
+        footer.w3-container.w3-brown
+            h5 Gerado por EngWeb2024 em #{d} - [
+                a(href="/periodos") Voltar
+                span ]
