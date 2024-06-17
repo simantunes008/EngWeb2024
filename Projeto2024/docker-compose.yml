@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+  authentication:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+  frontend:
+    build:
+      context: ./interface
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    depends_on:
+      - backend
+      - authentication
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    depends_on:
+      - mongo-seed
+  mongo-seed:
+    image: mongo:latest
+    volumes:
+      - ./ruas.json:/ruas.json
+      - ./users.json:/users.json
+      - ./import.sh:/import.sh
+    command: /import.sh

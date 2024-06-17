@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  .w3-container.w3-blue
+    .w3-card-4.w3-margin
+      .w3-container.w3-padding.w3-white.w3-round
+        h1.w3-center.w3-padding-16 Editar Rua: #{rua.nome}
+
+        form(action=`/editar/${rua._id}?_method=PUT`, method="POST", enctype="multipart/form-data", class="w3-container w3-padding")
+
+          .w3-section
+            label(for="nome") Nome:
+            input.w3-input.w3-border(type="text", id="nome", name="nome", value=rua.nome, required)
+
+          .w3-section
+            label(for="numero") Número:
+            input.w3-input.w3-border(type="text", id="numero", name="numero", value=rua.numero, required)
+
+          .w3-section
+            label(for="descricao") Descrição:
+            textarea.w3-input.w3-border(id="descricao", name="descricao", rows="5", required)= rua.descricao
+
+          .w3-section
+            label Figuras:
+            each figura, index in rua.figuras
+              .figuras-container
+                .figura
+                  label(for=`figuras[${index}][caminho]`) Selecione uma Nova Figura:
+                  input.w3-input.w3-border(type="file", name=`figuras[${index}][caminho]`)
+                  label(for=`figuras[${index}][legenda]`) Legenda da Figura:
+                  input.w3-input.w3-border(type="text", id=`figuras[${index}][legenda]`, name=`figuras[${index}][legenda]`, value=figura.legenda)
+
+          .w3-section
+            label Casas:
+            each casa, index in rua.casas
+              .casas-container
+                .casa
+                  label(for=`casas[${index}][numero]`) Número da Casa:
+                  input.w3-input.w3-border(type="text", id=`casas[${index}][numero]`, name=`casas[${index}][numero]`, value=casa.numero)
+                  label(for=`casas[${index}][enfiteuta]`) Enfiteuta:
+                  input.w3-input.w3-border(type="text", id=`casas[${index}][enfiteuta]`, name=`casas[${index}][enfiteuta]`, value=casa.enfiteuta)
+                  label(for=`casas[${index}][foro]`) Foro:
+                  input.w3-input.w3-border(type="text", id=`casas[${index}][foro]`, name=`casas[${index}][foro]`, value=casa.foro)
+                  label(for=`casas[${index}][desc]`) Descrição da Casa:
+                  textarea.w3-input.w3-border(id=`casas[${index}][desc]`, name=`casas[${index}][desc]`, rows="3")= casa.desc
+
+          button(type="submit" class="w3-button w3-green w3-round w3-margin-top") Atualizar Rua
+
+          form(action=`/${rua._id}?_method=DELETE`, method="POST", class="w3-container w3-padding w3-margin-top")
+            button(type="submit" class="w3-button w3-right w3-red w3-round w3-margin-top") Eliminar Rua

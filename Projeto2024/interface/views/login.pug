@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .w3-container.w3-blue
+    .w3-card-4.w3-margin.w3-white.w3-round
+      .w3-container.w3-padding
+
+        h3 Página de Login
+
+        form(action="/login", method="POST")
+          .w3-margin-bottom
+            label(for="username") Utilizador:
+            input.w3-input(type="text", id="username", name="username", required)
+
+          .w3-margin-bottom
+            label(for="password") Palavra-passe:
+            input.w3-input(type="password", id="password", name="password", required)
+
+          .w3-margin-bottom
+            input.w3-button.w3-green.w3-round(type="submit", value="Enviar")
+          
+          p Não tem conta? 
+            a(href="/registar") Criar Conta

@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  .w3-container.w3-blue
+    .w3-card-4.w3-margin
+      .w3-container.w3-padding.w3-white.w3-round
+        h1.w3-center.w3-padding-16 Adicionar Nova Rua
+
+        form(action="/registo" method="post" enctype="multipart/form-data" class="w3-container w3-padding")
+
+          .w3-section
+            label(for="nome") ID:
+            input.w3-input.w3-border(type="number" id="_id" name="_id" required)
+
+          .w3-section
+            label(for="nome") Nome:
+            input.w3-input.w3-border(type="text" id="nome" name="nome" required)
+
+          .w3-section
+            label(for="numero") Número:
+            input.w3-input.w3-border(type="text" id="numero" name="numero" required)
+
+          .w3-section
+            label(for="descricao") Descrição:
+            textarea.w3-input.w3-border(id="descricao" name="descricao" rows="5" required)
+
+          .w3-section
+            label Figuras:
+            .figuras-container
+              .figura
+                label(for="figuras[0][caminho]") Selecione uma Figura:
+                input.w3-input.w3-border(type="file" name="myFile")
+                label(for="figuras[0][legenda]") Legenda da Figura:
+                input.w3-input.w3-border(type="text" id="figuras[0][legenda]" name="figuras[0][legenda]")
+
+          .w3-section
+            label Casas:
+            .casas-container
+              .casa
+                label(for="casas[0][numero]") Número da Casa:
+                input.w3-input.w3-border(type="text" id="casas[0][numero]" name="casas[0][numero]")
+                label(for="casas[0][enfiteuta]") Enfiteuta:
+                input.w3-input.w3-border(type="text" id="casas[0][enfiteuta]" name="casas[0][enfiteuta]")
+                label(for="casas[0][foro]") Foro:
+                input.w3-input.w3-border(type="text" id="casas[0][foro]" name="casas[0][foro]")
+                label(for="casas[0][desc]") Descrição da Casa:
+                textarea.w3-input.w3-border(id="casas[0][desc]" name="casas[0][desc]" rows="3")
+
+          button(type="submit" class="w3-button w3-green w3-round w3-margin-top") Adicionar Rua

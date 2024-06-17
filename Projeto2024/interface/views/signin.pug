@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .w3-container.w3-blue
+    .w3-card-4.w3-margin.w3-white.w3-round
+      .w3-container.w3-padding
+
+        h3 Criar Conta
+
+        form(action="/registar", method="POST")
+          .w3-margin-bottom
+            label(for="username") Username:
+            input#username.w3-input(type="text", name="username", required)
+        
+          .w3-margin-bottom
+            label(for="email") Email:
+            input#email.w3-input(type="email", name="email", required)
+        
+          .w3-margin-bottom
+            label(for="filiacao") Filiação:
+            input#filiacao.w3-input(type="text", name="filiacao", required)
+        
+          .w3-margin-bottom
+            label(for="password") Password:
+            input#password.w3-input(type="password", name="password", required)
+        
+          .w3-margin-bottom
+            label(for="confirmPassword") Confirmar Password:
+            input#confirmPassword.w3-input(type="password", name="confirmPassword", required)
+        
+          .w3-margin-bottom
+            input.w3-button.w3-green.w3-round(type="submit", value="Registar")

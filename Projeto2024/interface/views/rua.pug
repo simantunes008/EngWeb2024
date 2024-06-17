@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  .w3-container.w3-blue
+    .w3-card-4.w3-margin.w3-white.w3-round
+      .w3-container.w3-padding
+
+        .w3-container
+          a.w3-button.w3-green.w3-round(href="javascript:history.back()") Voltar
+          a.w3-button.w3-green.w3-round.w3-right(href=`/editar/${rua._id}`) Editar
+
+        .w3-card-0.w3-margin.w3-round.w3-light-gray
+          .w3-container.w3-padding
+            h1.w3-center.w3-padding-16= rua.nome
+            p
+              strong Número:
+              |  #{rua.numero}
+            p
+              strong Descrição:
+              |  #{rua.descricao}
+
+        if rua.figuras.length
+          .w3-card-0.w3-margin.w3-round.w3-light-gray
+            .w3-container.w3-padding
+              h2 Figuras
+              each figura in rua.figuras
+                .w3-row-padding.w3-margin.w3-center
+                  img.w3-image.w3-round.w3-border(src=figura.caminho, alt=figura.legenda)
+
+        if rua.casas.length
+          .w3-card-0.w3-margin.w3-round.w3-light-gray
+            .w3-container.w3-padding
+              h2 Casas
+              each casa in rua.casas
+                .w3-container.w3-padding.w3-margin-top.w3-round.w3-white.w3-border
+                  p
+                    strong Número:
+                    |  #{casa.numero}
+                  p
+                    strong Enfiteuta:
+                    |  #{casa.enfiteuta}
+                  p
+                    strong Foro:
+                    |  #{casa.foro}
+                  p
+                    strong Descrição:
+                    |  #{casa.desc}
